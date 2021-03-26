@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Merge to mainline
         run: |
+          git fetch --all
           git checkout mainline
           echo
           echo "  Attempting to merge the 'develop' branch ($(git log -1 --pretty=%H develop))"
