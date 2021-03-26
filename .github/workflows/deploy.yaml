@@ -14,9 +14,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Merge to mainline
         run: |
-          git fetch --all
           git checkout mainline
           echo
           echo "  Attempting to merge the 'develop' branch ($(git log -1 --pretty=%H develop))"
