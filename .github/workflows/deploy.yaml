@@ -18,7 +18,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const result = await octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
+            const result = await github.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
               owner: 'carvantes',
               repo: 'fhir-works-on-aws-deployment',
               ref: 'heads/mainline',
