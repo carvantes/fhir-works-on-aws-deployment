@@ -13,12 +13,9 @@ jobs:
     name: Merge develop to mainline
     runs-on: ubuntu-18.04
     steps:
-      - name: sleep random 180
-        run: sleep $[ ( $RANDOM % 180 )  + 1 ]s
       - uses: actions/checkout@v2
         with: 
           token: ${{secrets.MERGE_TOKEN}}
-          fetch-depth: 0
 
         # There's no way for github actions to push to a protected branch. This is a workaround
         # See https://github.community/t/how-to-push-to-protected-branches-in-a-github-action/16101/30
