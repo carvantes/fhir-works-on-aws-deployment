@@ -14,14 +14,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Merge to mainline
-        run: |
-          git checkout mainline
-          echo
-          echo "  Attempting to merge the 'develop' branch ($(git log -1 --pretty=%H develop))"
-          echo "  into the 'mainline' branch ($(git log -1 --pretty=%H mainline))"
-          echo
-          git merge --ff-only --no-edit develop
-          git push origin mainline
+        uses: Embraser01/update-git-branch-action@v1.0.0
+        with:
+          branch: mainline
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
