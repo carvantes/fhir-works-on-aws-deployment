@@ -17,12 +17,15 @@ jobs:
         with: 
           token: ${{secrets.MERGE_TOKEN}}
           fetch-depth: 0
-      - name: Temporarily disable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
+      - name: Temporarily disable branch protection
+        uses: octokit/request-action@v2.x
         with:
-          access-token: ${{ secrets.MERGE_TOKEN }}
+          route: DELETE /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins
+          owner: carvantes
+          repo: fhir-works-on-aws-deployment
           branch: mainline
+        env:
+          GITHUB_TOKEN: ${{ secrets.MERGE_TOKEN }}
       - name: Merge to mainline
         run: |
           git checkout mainline
@@ -32,9 +35,13 @@ jobs:
           echo
           git merge --ff-only --no-edit develop
           git push origin mainline
-      - name: Temporarily disable "include administrators" branch protection
-        uses: benjefferies/branch-protection-bot@master
-        if: always()
+      - name: Enable branch protection 
+        uses: octokit/request-action@v2.x
+        if: always() # Make sure to enable branch protection even if other steps fail
         with:
-          access-token: ${{ secrets.MERGE_TOKEN }}
+          route: POST /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins
+          owner: carvantes
+          repo: fhir-works-on-aws-deployment
           branch: mainline
+        env:
+          GITHUB_TOKEN: ${{ secrets.MERGE_TOKEN }}
