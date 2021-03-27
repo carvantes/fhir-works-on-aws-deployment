@@ -17,6 +17,9 @@ jobs:
         with: 
           token: ${{secrets.MERGE_TOKEN}}
           fetch-depth: 0
+
+        # There's no way for github actions to push to a protected branch. This is a workaround
+        # See https://github.community/t/how-to-push-to-protected-branches-in-a-github-action/16101/30
       - name: Temporarily disable branch protection
         uses: octokit/request-action@v2.x
         with:
