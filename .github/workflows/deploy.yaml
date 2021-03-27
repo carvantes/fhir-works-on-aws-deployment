@@ -22,6 +22,7 @@ jobs:
         if: always()
         with:
           access-token: ${{ secrets.MERGE_TOKEN }}
+          branch: mainline
       - name: Merge to mainline
         run: |
           git checkout mainline
@@ -36,3 +37,4 @@ jobs:
         if: always()
         with:
           access-token: ${{ secrets.MERGE_TOKEN }}
+          branch: mainline
