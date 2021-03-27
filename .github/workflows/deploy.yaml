@@ -14,14 +14,15 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const result = await github.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
-              owner: 'carvantes',
-              repo: 'fhir-works-on-aws-deployment',
-              ref: 'heads/mainline',
-              sha: context.sha
-            });
-            console.log(result);
+        with: 
+          token: ${{secrets.MERGE_TOKEN}}
+          fetch-depth: 0
+      - name: Merge to mainline
+          run: |
+            git checkout mainline
+            echo
+            echo "  Attempting to merge the 'develop' branch ($(git log -1 --pretty=%H develop))"
+            echo "  into the 'mainline' branch ($(git log -1 --pretty=%H mainline))"
+            echo
+            git merge --ff-only --no-edit develop
+            git push origin mainline
