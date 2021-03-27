@@ -17,4 +17,6 @@ jobs:
       - uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          script: console.log(context)
+          script: |
+            console.log('github.rest.git.updateRef')
+            console.log(github.rest.git.updateRef)
