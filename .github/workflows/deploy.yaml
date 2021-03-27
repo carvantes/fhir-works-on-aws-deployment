@@ -13,7 +13,7 @@ jobs:
     name: Merge develop to mainline
     runs-on: ubuntu-18.04
     steps:
-      - name: sleep random 20
+      - name: sleep random 180
         run: sleep $[ ( $RANDOM % 20 )  + 1 ]s
       - uses: actions/checkout@v2
         with: 
