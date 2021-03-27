@@ -13,8 +13,8 @@ jobs:
     name: Merge develop to mainline
     runs-on: ubuntu-18.04
     steps:
-      - name: sleep 10
-        run: sleep 10
+      - name: sleep random 20
+        run: sleep $[ ( $RANDOM % 20 )  + 1 ]s
       - uses: actions/checkout@v2
         with: 
           token: ${{secrets.MERGE_TOKEN}}
