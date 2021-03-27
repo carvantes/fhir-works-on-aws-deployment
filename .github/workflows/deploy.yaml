@@ -17,6 +17,11 @@ jobs:
         with: 
           token: ${{secrets.MERGE_TOKEN}}
           fetch-depth: 0
+      - name: Temporarily disable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()
+        with:
+          access-token: ${{ secrets.MERGE_TOKEN }}
       - name: Merge to mainline
         run: |
           git checkout mainline
@@ -26,3 +31,8 @@ jobs:
           echo
           git merge --ff-only --no-edit develop
           git push origin mainline
+      - name: Temporarily disable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@master
+        if: always()
+        with:
+          access-token: ${{ secrets.MERGE_TOKEN }}
